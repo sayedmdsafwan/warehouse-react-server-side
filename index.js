@@ -22,7 +22,7 @@ async function run() {
             .db("dbFruits")
             .collection("fruitsNinja");
 
-        // get request | read
+        // get request
         // http://localhost:4000/fruits
         app.get("/fruits", async (req, res) => {
             const query = req.query;
@@ -31,7 +31,7 @@ async function run() {
             res.send(result);
         });
 
-        // post request | create
+        // post request
         // http://localhost:4000/fruit
         app.post("/fruit", async (req, res) => {
             const data = req.body;
@@ -39,7 +39,7 @@ async function run() {
             res.send(result);
         });
 
-        // update operation | update
+        // update operation
         // http://localhost:4000/fruit/626ef3f9868ff954c0e3c9d3
         app.put("/fruit/:id", async (req, res) => {
             const id = req.params.id;
@@ -59,7 +59,7 @@ async function run() {
             res.send(result);
         });
 
-        // delete operation | delete
+        // delete operation
         app.delete("/fruit/:id", async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
