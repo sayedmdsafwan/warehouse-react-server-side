@@ -22,21 +22,21 @@ async function run() {
             .db("dbFruits")
             .collection("fruitsNinja");
 
-        // get one item |
-        // http://localhost:4000/inventory/626eec71d42e735646cc8632
-        app.get("/inventory/:id", async (req, res) => {
-            const id = req.params.id;
-            const query = { _id: ObjectId(id) };
-            const result = await fruitsCollection.findOne(query);
-            res.send(result);
-        });
-
         // get request | for all items
         // http://localhost:4000/inventories
         app.get("/inventory", async (req, res) => {
             const query = req.query;
             const cursor = fruitsCollection.find(query);
             const result = await cursor.toArray();
+            res.send(result);
+        });
+
+        // get one item |
+        // http://localhost:4000/inventory/626eec71d42e735646cc8632
+        app.get("/inventory/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await fruitsCollection.findOne(query);
             res.send(result);
         });
 
