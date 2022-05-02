@@ -22,26 +22,35 @@ async function run() {
             .db("dbFruits")
             .collection("fruitsNinja");
 
-        // get request
-        // http://localhost:4000/fruits
-        app.get("/fruits", async (req, res) => {
+        // get request | for all items
+        // http://localhost:4000/inventories
+        app.get("/inventory", async (req, res) => {
             const query = req.query;
             const cursor = fruitsCollection.find(query);
             const result = await cursor.toArray();
             res.send(result);
         });
 
+        // get one item |
+        // http://localhost:4000/inventory/626eec71d42e735646cc8632
+        app.get("/inventory/:id", async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await fruitsCollection.findOne(query);
+            res.send(result);
+        });
+
         // post request
-        // http://localhost:4000/fruit
-        app.post("/fruit", async (req, res) => {
+        // http://localhost:4000/inventory
+        app.post("/inventory", async (req, res) => {
             const data = req.body;
             const result = await fruitsCollection.insertOne(data);
             res.send(result);
         });
 
         // update operation
-        // http://localhost:4000/fruit/626ef3f9868ff954c0e3c9d3
-        app.put("/fruit/:id", async (req, res) => {
+        // http://localhost:4000/inventory/626ef3f9868ff954c0e3c9d3
+        app.put("/inventory/:id", async (req, res) => {
             const id = req.params.id;
             const data = req.body;
             const filter = { _id: ObjectId(id) };
@@ -60,7 +69,7 @@ async function run() {
         });
 
         // delete operation
-        app.delete("/fruit/:id", async (req, res) => {
+        app.delete("/inventory/:id", async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await fruitsCollection.deleteOne(query);
