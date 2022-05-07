@@ -31,7 +31,7 @@ async function run() {
             res.send(result);
         });
 
-        // get one item |
+        // get single item
         // http://localhost:4000/inventory/626eec71d42e735646cc8632
         app.get("/inventory/:id", async (req, res) => {
             const id = req.params.id;
